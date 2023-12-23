@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block title %} Blog Posts {% endblock %} {% block
+content %}
+<!-- Link to the external stylesheet -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='user_profile.css') }}"
+/>
+
+<!-- Title for the Blog Posts section -->
+<h1>Blog Posts</h1>
+
+<!-- List of blog posts -->
+<ul>
+  {% for post in posts %}
+  <li>
+    <!-- Link to individual post with its title -->
+    <a href="{{ url_for('posts_show', post_id=post.post_id) }}"
+      >{{ post.title }}</a
+    >
+  </li>
+  {% endfor %}
+</ul>
+
+<!-- Links for Users List and Tags -->
+<form>
+  <a href="/users" class="btn btn btn-primary">Home Page</a>
+
+  <a href="/tags" class="btn btn-primary"> Tags </a>
+</form>
+
+{% endblock %}

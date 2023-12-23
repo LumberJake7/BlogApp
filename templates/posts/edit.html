@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block title %} Edit Post {% endblock %} {% block
+content %}
+<!-- Heading for the edit post section -->
+<h1>Edit Post</h1>
+
+<!-- Form for editing the post -->
+<form method="POST" action="/posts/{{ post.post_id }}/edit">
+  <!-- Title field -->
+  <div class="form-group row">
+    <label for="title" class="col-sm-2 col-form-label">Title</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        id="title"
+        name="title"
+        value="{{ post.title }}"
+      />
+    </div>
+  </div>
+
+  <!-- Content field -->
+  <div class="form-group row">
+    <label for="content" class="col-sm-2 col-form-label">Post Content</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" id="content" name="content">
+{{ post.content }}</textarea
+      >
+    </div>
+  </div>
+
+  <!-- Tags selection with checkboxes -->
+  <div class="form-check">
+    {% for tag in tags %}
+    <div>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="{{ tag.id }}"
+        id="tag_{{ tag.id }}"
+        {%
+        if
+        tag
+        in
+        post.tags
+        %}
+        checked
+        {%
+        endif
+        %}
+        name="tags"
+      />
+      <label class="form-check-label" for="tag_{{ tag.id }}">
+        {{ tag.name }}
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Buttons for actions -->
+  <div class="form-group row">
+    <div class="ml-auto mr-3">
+      <!-- Cancel button -->
+      <a href="/user/{{ post.user_id }}" class="btn btn-outline-info">
+        Cancel
+      </a>
+
+      <!-- Submit button for editing -->
+      <button type="submit" class="btn btn-success">Edit</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

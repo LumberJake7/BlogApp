@@ -1,0 +1,74 @@
+{% extends 'base.html' %} {% block title %} HomePage {% endblock %} {% block
+content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+<h1 class="home-title">User List</h1>
+<div class="entire-sidebar">
+  <div class="top-sidebar">
+    <div class="users-scrollable">
+      <div class="users">
+        {% for user in users %}
+        <div class="user-card">
+          <a href="{{ url_for('user_profile', user_id=user.id) }}">
+            <img src="{{ user.image_url }}" alt="User Avatar" />
+            <p>{{ user.first_name }} {{ user.last_name }}</p>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-links">
+    <ul>
+      <li>
+        <a href="{{ url_for('add_user_form') }}">
+          <i class="fas fa-user-plus"></i> Add User
+        </a>
+      </li>
+      <li>
+        <a href="{{ url_for('list_posts') }}">
+          <i class="fas fa-list"></i> Posts
+        </a>
+      </li>
+      <li>
+        <a href="{{ url_for('list_tags') }}">
+          <i class="fas fa-tags"></i> Tags
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="posts">
+  {% for post, user in posts_with_user_names %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="{{ url_for('posts_show', post_id=post.post_id) }}"
+          >{{ post.title }}</a
+        >
+      </h5>
+      <p class="card-text">{{ post.content }}</p>
+      <p class="card-text">
+        <small class="text-muted">Created At: {{ post.created_at }}</small>
+      </p>
+      <p class="card-text">
+        <strong>User:</strong
+        ><a href="{{ url_for('user_profile', user_id=user.id) }}">
+          {{ user.full_name() }}</a
+        >
+      </p>
+      <p class="card-text">
+        <strong>Tags:</strong>
+        {% for tag in post.tags %}
+        <span class="badge badge-secondary"
+          ><a href="{{url_for('tag_link', tag_id=tag.id)}}"
+            >{{ tag.name }}</a
+          ></span
+        >
+        {% endfor %}
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

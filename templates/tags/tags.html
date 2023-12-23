@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block title %} Tags
+<!-- Title of the page -->
+{% endblock %} {% block content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='user_profile.css') }}"
+/>
+
+<h1>Here are some tags</h1>
+<!-- Heading for tag list -->
+
+<ul>
+  {% for tag in tags %}
+  <li>
+    <a href="{{ url_for('tag_link', tag_id=tag.id) }}"> {{ tag.name }} </a>
+    <!-- List of tags with links -->
+  </li>
+  {% endfor %}
+</ul>
+
+<form>
+  <!-- Navigation links/buttons -->
+  <a href="/users" class="btn btn-primary">Home Page</a>
+  <!-- Link to the home page -->
+
+  <a href="/posts" class="btn btn-primary">Back to posts</a>
+  <!-- Link to posts -->
+
+  <a href="/tags/new" class="btn btn-success">Add a tag</a>
+  <!-- Link to add a new tag -->
+</form>
+{% endblock %}

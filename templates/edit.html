@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block title %} Edit User {% endblock %} {% block
+content %}
+<style>
+  form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    max-width: 400px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"] {
+    width: calc(100% - 12px);
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #0caf55;
+  }
+  .home {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .home:hover {
+    background-color: #b30000;
+  }
+</style>
+
+<h1>Edit User</h1>
+<form action="/users/{{ user.id }}/edit" method="POST">
+  <label for="fname">First Name:</label>
+  <input
+    type="text"
+    id="fname"
+    name="fname"
+    value="{{ user.first_name }}"
+  /><br /><br />
+
+  <label for="lname">Last Name:</label>
+  <input
+    type="text"
+    id="lname"
+    name="lname"
+    value="{{ user.last_name }}"
+  /><br /><br />
+
+  <label for="pimage">Profile Image URL:</label>
+  <input
+    type="text"
+    id="pimage"
+    name="pimage"
+    value="{{ user.image_url }}"
+  /><br /><br />
+  <a href="{{ url_for('list_users') }}" class="btn btn-primary home">Cancel</a>
+
+  <input type="submit" value="Update" />
+</form>
+{% endblock %}

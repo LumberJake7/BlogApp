@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block title %} {{ tag.name }}
+<!-- Title of the page based on the tag name -->
+{% endblock %} {% block content %}
+<style>
+  /* CSS styles for badges */
+  .badge-secondary a {
+    color: inherit !important;
+    text-decoration: none;
+    padding: 3px 6px;
+    border-radius: 4px;
+  }
+
+  .badge-secondary a:hover,
+  .badge-secondary a:hover span {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Style for 'No posts found' message */
+  .no-posts {
+    margin-left: 50px; /* Adjust indentation as needed */
+  }
+</style>
+
+<h1>{{ tag.name }}</h1>
+<!-- Displaying the tag name -->
+
+{% if tag.posts %} {% for post in tag.posts %}
+<!-- Displaying posts for the tag -->
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">
+      <a href="{{ url_for('posts_show', post_id=post.post_id) }}"
+        >{{ post.title }}</a
+      >
+    </h5>
+    <p class="card-text">{{ post.content }}</p>
+    <p class="card-text">
+      <small class="text-muted">Created At: {{ post.created_at }}</small>
+    </p>
+    <p class="card-text">
+      <strong>Tags:</strong>
+      {% for post_tag in post.tags %}
+      <!-- Displaying tags associated with the post -->
+      <span class="badge badge-secondary">
+        <a href="{{ url_for('tag_link', tag_id=post_tag.id) }}"
+          >{{ post_tag.name }}</a
+        >
+      </span>
+      {% endfor %}
+    </p>
+  </div>
+</div>
+{% endfor %} {% else %}
+<!-- Displaying message when no posts are found for the tag -->
+<h2 class="no-posts">No posts found</h2>
+{% endif %}
+
+<!-- Form buttons for navigation and actions -->
+<form>
+  <a href="/users" class="btn btn-primary">Back to users</a>
+  <button
+    formmethod="GET"
+    formaction="/tags/{{ tag.id }}/edit"
+    class="btn btn-primary"
+  >
+    Edit
+  </button>
+  <button
+    formmethod="POST"
+    formaction="/tags/{{ tag.id }}/delete"
+    class="btn btn-danger"
+  >
+    Delete
+  </button>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block title %} {{ tag.name }}
+<!-- Displays the tag name in the title -->
+{% endblock %} {% block content %}
+<!-- Header for tag editing -->
+<h1>Edit Tag</h1>
+
+<form method="POST" action="/tags/{{ tag.id }}/edit">
+  <!-- Input field for changing the tag name -->
+  <label for="name">Name</label>
+  <input type="text" name="name" id="name" value="{{ tag.name }}" />
+
+  <!-- Form actions: Edit and Cancel buttons -->
+  <div class="form-group row">
+    <div class="ml-auto mr-3">
+      <!-- Button to submit changes -->
+      <button type="submit" class="btn btn-success">Edit</button>
+      <!-- Button to cancel editing and return to the tag details -->
+      <a href="/tags/{{ tag.id }}" class="btn btn-outline-info">Cancel</a>
+    </div>
+  </div>
+</form>
+{% endblock %}

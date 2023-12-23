@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block title %} Add Post
+<!-- Title for the page -->
+{% endblock %} {% block content %}
+<!-- Header for adding a new post -->
+<h1>Add Post for {{ full_name }}</h1>
+
+<form method="POST">
+  <!-- Form input field for the post name -->
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="name" name="name" />
+    </div>
+  </div>
+  <!-- Form action buttons: Cancel and Add -->
+  <div class="form-group row">
+    <div class="ml-auto mr-3">
+      <!-- Button to cancel and return to the tags page -->
+      <a href="/tags" class="btn btn-info">Cancel</a>
+      <!-- Button to submit and add the new post -->
+      <button type="submit" class="btn btn-success">Add</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

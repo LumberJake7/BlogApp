@@ -1,0 +1,30 @@
+.user-profile {
+  float: left;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 25%;
+  margin-right: 20px;
+}
+
+.content-and-posts {
+  float: right;
+  width: 70%;
+}
+
+.posts {
+  margin-top: 20px;
+}
+.badge-secondary a {
+  color: inherit !important;
+  text-decoration: none;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.badge-secondary a:hover,
+.badge-secondary a:hover span {
+  color: inherit;
+
+  text-decoration: none;
+}

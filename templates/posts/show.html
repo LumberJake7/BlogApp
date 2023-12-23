@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block title %} {{ post.title }} {% endblock %} {%
+block content %}
+<!-- CSS style for tags -->
+<style>
+  .badge-secondary a {
+    color: inherit !important;
+    text-decoration: none;
+    padding: 3px 6px;
+    border-radius: 4px;
+  }
+
+  /* Hover effect for tags */
+  .badge-secondary a:hover,
+  .badge-secondary a:hover span {
+    color: inherit;
+    text-decoration: none;
+  }
+</style>
+
+<!-- Container for content and posts -->
+<div class="content-and-posts">
+  <div class="posts">
+    <!-- Card for displaying post information -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <!-- Post title -->
+        <h5 class="card-title">{{ post.title }}</h5>
+        <!-- Post content -->
+        <p class="card-text">{{ post.content }}</p>
+        <!-- Creation timestamp of the post -->
+        <p class="card-text">
+          <small class="text-muted">Created At: {{ post.created_at }}</small>
+        </p>
+        <!-- Tags associated with the post -->
+        <p class="card-text">
+          <strong>Tags:</strong>
+          {% for tag in post.tags %}
+          <!-- Display tags using badges -->
+          <span class="badge badge-secondary">
+            <a href="{{ url_for('tag_link', tag_id=tag.id) }}" class="tag_name"
+              >{{ tag.name }}</a
+            >
+          </span>
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit and Delete buttons for the post -->
+<a href="/posts/{{ post.post_id }}/edit" class="btn btn-primary">Edit</a>
+<form action="{{ url_for('posts_delete', post_id=post_id) }}" method="post">
+  <input type="submit" value="Delete Post" class="btn btn-danger" />
+</form>
+{% endblock %}

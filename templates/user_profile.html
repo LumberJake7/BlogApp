@@ -1,0 +1,63 @@
+{% extends 'base.html' %} 
+{% block title %} 
+  {{ user.full_name() }} 
+{% endblock %} 
+
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_profile.css') }}" />
+  
+  <div class="user-profile">
+    <h2><em>{{ user.first_name }} {{ user.last_name }}</em></h2>
+
+    <img src="{{ user.image_url }}" alt="User Image" width="500">
+    <div class="action-buttons">
+      <a href="/users/{{ user.id }}/posts/new" class="btn btn-primary">Add Post</a>
+    
+      <button onclick="location.href='{{ url_for('user_profile_edit', user_id=user.id) }}'" class="btn btn-primary">
+        Edit User
+      </button>
+    
+      <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post">
+        <input type="submit" value="Delete User" class="btn btn-danger"/> 
+        <a href="{{ url_for('list_users') }}" class="btn btn-primary">Home Page</a>
+      
+      <a href="{{ url_for('list_posts') }}" class="btn btn-primary">Posts</a>
+      </form>
+   
+    </div>
+    
+  </div>
+  
+  <div class="content-and-posts">
+    <h2>Posts:</h2>
+    {% if user_posts %}
+      <div class="posts">
+        {% for post in user_posts %}
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{{ url_for('posts_show', post_id=post.post_id) }}">{{ post.title }}</a>
+              </h5>
+              <p class="card-text">{{ post.content }}</p>
+              <p class="card-text">
+                <small class="text-muted">Created At: {{ post.created_at }}</small>
+              </p>
+              <p class="card-text">
+                <strong>Tags:</strong>
+                {% for tag in post.tags %}
+                  <span class="badge badge-secondary">
+                    <a href="{{ url_for('tag_link', tag_id=tag.id) }}">{{ tag.name }}</a>
+                  </span>
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No posts yet.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
+{% endblock %}
